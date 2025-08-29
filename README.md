@@ -1,12 +1,10 @@
-# Cannon-game
 
 
 # 🎯 Cannon Game
 
-A **2D side-view artillery game** called **Cannon**, inspired by classic artillery games.  
-This project is developed using the **Kivy framework** and is designed to run on any system with **Python 3** and **Kivy** installed.  
-
----
+<p align="center">
+  <img src="images/screenshot.png" alt="Cannon Game Screenshot" width="500"/>
+</p>
 
 ## 📌 Overview
 The final exam project involves designing and implementing a 2D artillery game with customizable features.  
