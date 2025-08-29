@@ -3,7 +3,7 @@
 # 🎯 Cannon Game
 
 <p align="center">
-  <img src="https://github.com/Mohammadhossinee/Cannon-game/blob/main/Images/image.png?raw=true" alt="Cannon Game Screenshot" width="500"/>
+  <img src="https://github.com/Mohammadhossinee/Cannon-game/blob/main/Images/image.png?raw=true" alt="Cannon Game Screenshot" width="800"/>
 </p>
 
 ## 📌 Overview
