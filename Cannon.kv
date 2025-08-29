@@ -1,0 +1,210 @@
+MainMenu:
+
+<Help>
+    BoxLayout:
+        size: root.size
+        orientation: "vertical"
+        Label:
+            size_hint: 1, 0.1
+            markup: True
+            text: "[color=000000]The goal of the game is to shoot the cannon and hit the target \n with correct angle and initial velocity [/color]"
+            halign: 'center'
+        Label:
+            size_hint: 1, 0.1
+            markup: True
+            text: "[color=000000]Player can operate in the game through the buttons in the left side of the screen.[/color]"
+            halign: 'center'
+        Label:
+            size_hint: 1, 0.1
+            markup: True
+            text: "[color=000000]There are three types of obstacles in the game that spawn randomly with respect to the current level. \n Wormhole, Rocks and Mirror.[/color]"
+            halign: 'center'
+        Label:
+            size_hint: 1, 0.1
+            markup: True
+            text: "[color=000000]Mirror reflects the laser, Wormhole teleports it to the other wormhole and the rock block it. [/color]"
+            halign: 'center'
+        Label:
+            size_hint: 1, 0.1
+            markup: True
+            text: "[color=000000]The game consists of 15 levels, and number of bullets in each round vary w.r.t the current level.[/color]"
+            halign: 'center'
+        Button:
+            size_hint: 1, 0.1
+            text: "Back To Main Menu"
+            pos_hint: {'center_x': 0.5}
+            on_press: root.back_to_main_menu()
+
+
+<MainMenu>
+    GridLayout:
+        cols: 1
+        Button:
+            text: "New Game"
+            on_press: root.new_game()
+        Button:
+            text: "Load Game"
+            on_press: root.load_game()
+        Button:
+            text: "Hall Of Fame"
+            on_press: root.hall_of_fame_screen()
+        Button:
+            text: "Help Page"
+            on_press: root.help_screen()
+
+
+<GameScreen>:
+    BoxLayout:
+        size: root.size
+        orientation: "horizontal"
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: 'Images/background.jpg'
+        GridLayout:
+            cols: 1
+            size_hint: .1, 1
+            spacing: "5dp"
+            Button:
+                on_press: root.attack()
+                Image:
+                    source: "Images/shoot-icon.png"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
+
+            Button:
+                on_press: root.change_gun()
+                Image:
+                    source: "Images/switch-weapon.png"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
+            Label:
+                markup: True
+                text: '[color=ff3333][b]' + root.active_projectile + '[/b][/color]'
+            Label:
+                size_hint: 1, None
+                size: dp(20), dp(30)
+                markup: True
+                text: "[color=000000]Level:"+ root.round +"[/color]"
+            Label:
+                size_hint: 1, None
+                size: dp(20), dp(40)
+                markup: True
+                text: "[color=000000]Shots Left:\n[/color]"+ "[color=ff3333][b]  " + root.shots_left + "[/b][/color]"
+            Label:
+                size_hint: 1, None
+                size: dp(20), dp(40)
+                markup: True
+                text: "[color=000000]Shot angle:[/color]"
+            TextInput:
+                text: "45"
+                on_text: root.adjust_angle(self)
+                multiline: False
+            Label:
+                markup: True
+                text: "[color=000000]Velocity:\n"+ root.velocity +" PX/S[/color]"
+            BoxLayout:
+                # Speed Up
+                Button:
+                    on_press: root.increase_velocity()
+                    Image:
+                        source: "Images/speed-up.png"
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+                        allow_stretch: True
+                        size: 50, 50
+                Button:
+                    on_press: root.decrease_velocity()
+                    Image:
+                        source: "Images/speed-down.png"
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+                        allow_stretch: True
+                        size: 50, 50
+            AnchorLayout:
+                anchor_x: "left"
+                anchor_y: "bottom"
+                BoxLayout:
+                    orientation: "vertical"
+                    Button:
+                        on_press: root.save()
+                        text: "Save"
+                        size_hint: 1, None
+                        height: "40dp"
+                    Button:
+                        on_press: root.back_to_main_menu()
+                        text: "Main Menu"
+                        size_hint: 1, None
+                        height: "40dp"
+        BoxLayout:
+            size_hint: .9, 1
+            Widget:
+
+
+
+<HallOfFame>:
+    BoxLayout:
+        size: root.size
+        orientation: "vertical"
+        BoxLayout:
+            size_hint: 1, .1
+            Label:
+                text: "Hall Of Fame"
+        BoxLayout:
+            size_hint: 1, .8
+            orientation: 'horizontal'
+            BoxLayout:
+                size_hint: .4, 1
+                orientation: "vertical"
+                BoxLayout:
+                    Label:
+                        text: root.names_left
+            Widget:
+                size_hint: .2, 1
+                canvas:
+                    Rectangle:
+                        size: dp(2), dp(300)
+                        pos: root.width/2, root.height/2-200
+            BoxLayout:
+                size_hint: .4, 1
+                orientation: "vertical"
+                BoxLayout:
+                    Label:
+                        text: root.names_right
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: 1, 0.1
+            Button:
+                text: "Back To Main Menu"
+                on_press: root.back_to_main_menu()
+
+
+<LoadGame>:
+    BoxLayout:
+        size: root.size
+        orientation: "vertical"
+        BoxLayout:
+            size_hint: 1, 0.9
+            BoxLayout:
+                orientation: "vertical"
+                padding: dp(200)
+                TextInput:
+                    text: root.game_to_load_name
+
+                BoxLayout:
+                    Button:
+                        text: "left"
+                        on_press: root.left_button()
+                    Button:
+                        text: "right"
+                        on_press: root.right_button()
+                Button:
+                    text: "Load The Game"
+                    on_press: root.load_game()
+        BoxLayout:
+            size_hint: 1, 0.1
+            Button:
+                text: "Back To Main Menu"
+                on_press: root.back_to_main_menu()
+
